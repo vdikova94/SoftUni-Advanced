@@ -1,16 +1,22 @@
 function timeToWalk(steps, stepLength, speed) {
-    let distance = (steps * stepLength);
-    let addMinute = Math.floor(distance / 500);
-    let time = ((distance / 1000) / speed);
-    time *= 60;
-    time += addMinute;
-    time *= 60;
 
+    let distanceInMetres = (steps * stepLength);
+    let speedInMetres = speed / 3.6;
+    let time = distanceInMetres / speedInMetres;
+    let addMinute = Math.floor(distanceInMetres / 500);
+    let timeInMin = Math.floor(time / 60)
+    let timeInSec = Math.ceil(time - (timeInMin * 60));
+    let timeInHour = Math.floor(time / 3600);
 
+    timeInMin += addMinute;
+    timeInMin = timeInMin % 60;
+    timeInHour += Math.floor(timeInMin / 60);
 
-    console.log(time);
+    let formatHour = timeInHour > 10 ? `${timeInHour}` : `0${timeInHour}`
+    let formatMinutes = timeInMin > 10 ? `${timeInMin}` : `0${timeInMin}`
+    let formatSeconds = timeInSec > 10 ? `${timeInSec}` : `0${timeInSec}`
 
-
+    console.log(`${formatHour}:${formatMinutes}:${formatSeconds}`);
 
 }
-timeToWalk(4000, 0.60, 5)
+timeToWalk(9000, 0.60, 5)
